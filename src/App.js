@@ -1,10 +1,11 @@
 import './App.css';
-import TodoFeature from './features/Todo';
+import AlbumFeature from './features/Album';
 
 function App() {
 	return (
 		<div>
-			<TodoFeature />
+			{/* <TodoFeature /> */}
+			<AlbumFeature />
 		</div>
 	);
 }
