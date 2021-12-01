@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TodoList from './components/TodoList';
 
 TodoFeature.propTypes = {};
@@ -23,6 +23,9 @@ function TodoFeature(props) {
 	];
 
 	const [todoList, setTodoList] = useState(initTodoList);
+	const [todoStatus, setTodoStatus] = useState('all');
+
+	useEffect(() => console.log(todoStatus, todoListRender));
 
 	function handleTodoClick(index, status) {
 		// clone current array to the new one
@@ -38,10 +41,32 @@ function TodoFeature(props) {
 		setTodoList(newTodoList);
 	}
 
+	function handleShowAllClick() {
+		setTodoStatus('all');
+	}
+
+	function handleCompletedClick() {
+		setTodoStatus('completed');
+	}
+
+	function handleShowNewClick() {
+		setTodoStatus('new');
+	}
+
+	const todoListRender = todoList.filter((todo) => {
+		return todoStatus === 'all' || todoStatus === todo.status;
+	});
+
 	return (
 		<div>
 			<h3>Todo List</h3>
-			<TodoList todoList={todoList} onTodoClick={handleTodoClick} />
+			<TodoList todoList={todoListRender} onTodoClick={handleTodoClick} />
+
+			<div>
+				<button onClick={handleShowAllClick}>Show All</button>
+				<button onClick={handleCompletedClick}>Show Completed</button>
+				<button onClick={handleShowNewClick}>Show New</button>
+			</div>
 		</div>
 	);
 }
