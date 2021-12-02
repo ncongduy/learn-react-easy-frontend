@@ -3,41 +3,39 @@ import TodoList from './components/TodoList';
 
 TodoFeature.propTypes = {};
 
-function TodoFeature(props) {
-	const initTodoList = [
-		{
-			id: 1,
-			title: 'eat',
-			status: 'completed',
-		},
-		{
-			id: 2,
-			title: 'sleep',
-			status: 'new',
-		},
-		{
-			id: 3,
-			title: 'code',
-			status: 'new',
-		},
-	];
+const initTodoList = [
+	{
+		id: 1,
+		title: 'eat',
+		status: 'completed',
+	},
+	{
+		id: 2,
+		title: 'sleep',
+		status: 'new',
+	},
+	{
+		id: 3,
+		title: 'code',
+		status: 'new',
+	},
+];
 
+function TodoFeature(props) {
 	const [todoList, setTodoList] = useState(initTodoList);
 	const [todoStatus, setTodoStatus] = useState('all');
 
 	useEffect(() => console.log(todoStatus, todoListRender));
 
-	function handleTodoClick(index, status) {
-		// clone current array to the new one
+	function handleTodoClick(id, status) {
 		const newTodoList = [...todoList];
 
-		// change value
-		newTodoList[index] = {
-			...newTodoList[index],
-			status: status === 'new' ? 'completed' : 'new',
-		};
+		newTodoList.forEach((todo) => {
+			if (todo.id === id) {
+				todo.status = status === 'new' ? 'completed' : 'new';
+			}
+		});
 
-		// update value todoList
 		setTodoList(newTodoList);
 	}
 
@@ -53,9 +51,9 @@ function TodoFeature(props) {
 		setTodoStatus('new');
 	}
 
-	const todoListRender = todoList.filter((todo) => {
-		return todoStatus === 'all' || todoStatus === todo.status;
-	});
+	const todoListRender = todoList.filter(
+		(todo) => todoStatus === 'all' || todoStatus === todo.status
+	);
 
 	return (
 		<div>
