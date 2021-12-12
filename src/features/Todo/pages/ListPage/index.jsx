@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import queryString from 'query-string';
+import React, { useEffect, useMemo, useState } from 'react';
+import { useHistory, useLocation, useRouteMatch } from 'react-router-dom';
 import TodoList from '../../components/TodoList';
 
 ListPage.propTypes = {};
@@ -22,10 +24,24 @@ const initTodoList = [
 ];
 
 function ListPage(props) {
-  const [todoList, setTodoList] = useState(initTodoList);
-  const [todoStatus, setTodoStatus] = useState('all');
+  const location = useLocation();
+  const history = useHistory();
+  const match = useRouteMatch();
 
-  useEffect(() => console.log(todoStatus, todoListRender));
+  const [todoList, setTodoList] = useState(initTodoList);
+  const [todoStatus, setTodoStatus] = useState(() => {
+    const params = queryString.parse(location.search);
+    return params.status || 'all';
+  });
+
+  useEffect(() =>
+    console.log('location: ', location, 'history: ', history, 'match: ', match)
+  );
+
+  useEffect(() => {
+    const params = queryString.parse(location.search);
+    setTodoStatus(params.status || 'all');
+  }, [location.search]);
 
   function handleTodoClick(id, status) {
     const newTodoList = [...todoList];
@@ -40,19 +56,38 @@ function ListPage(props) {
   }
 
   function handleShowAllClick() {
-    setTodoStatus('all');
+    // setTodoStatus('all');
+    const queryParams = { status: 'all' };
+    history.push({
+      pathname: match.path,
+      search: queryString.stringify(queryParams),
+    });
   }
 
   function handleCompletedClick() {
-    setTodoStatus('completed');
+    // setTodoStatus('completed');
+    const queryParams = { status: 'completed' };
+    history.push({
+      pathname: match.path,
+      search: queryString.stringify(queryParams),
+    });
   }
 
   function handleShowNewClick() {
-    setTodoStatus('new');
+    // setTodoStatus('new');
+    const queryParams = { status: 'new' };
+    history.push({
+      pathname: match.path,
+      search: queryString.stringify(queryParams),
+    });
   }
 
-  const todoListRender = todoList.filter(
-    (todo) => todoStatus === 'all' || todoStatus === todo.status
+  const todoListRender = useMemo(
+    () =>
+      todoList.filter(
+        (todo) => todoStatus === 'all' || todoStatus === todo.status
+      ),
+    [todoList, todoStatus]
   );
 
   return (
