@@ -1,8 +1,8 @@
+import { Route, Switch, Redirect } from 'react-router';
+import { Link } from 'react-router-dom';
 import './App.css';
-import TodoFeature from './features/Todo';
 import AlbumFeature from './features/Album';
-import { Route } from 'react-router';
-import { Link, NavLink } from 'react-router-dom';
+import TodoFeature from './features/Todo';
 
 function App() {
   return (
@@ -14,16 +14,15 @@ function App() {
         <Link to="/albums">Albums</Link>
       </p>
 
-      <p>
-        <NavLink to="/todos">Todos</NavLink>
-      </p>
-      <p>
-        <NavLink to="/albums">Albums</NavLink>
-      </p>
-
       <h2>Header</h2>
-      <Route path="/todos" component={TodoFeature} />
-      <Route path="/albums" component={AlbumFeature} />
+      <Switch>
+        <Redirect from="/home" to="/" exact />
+        <Redirect from="/post-list/:postId" to="/posts/:postId" exact />
+
+        {/* <Route path="/" component={TodoFeature} /> */}
+        <Route path="/todos" component={TodoFeature} />
+        <Route path="/albums" component={AlbumFeature} />
+      </Switch>
       <h2>Footer</h2>
     </div>
   );
