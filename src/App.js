@@ -1,24 +1,24 @@
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 import { Redirect, Route, Switch } from 'react-router';
 import { Link } from 'react-router-dom';
-import productApi from './api/productApi';
+// import productApi from './api/productApi';
 import './App.css';
 import NotFound from './components/NotFound';
 import AlbumFeature from './features/Album';
 import TodoFeature from './features/Todo';
 
 function App() {
-  useEffect(() => {
-    const fetchProducts = async () => {
-      const params = {
-        _limit: 10,
-      };
-      const productList = await productApi.getAll(params);
-      console.log(productList);
-    };
+  // useEffect(() => {
+  //   const fetchProducts = async () => {
+  //     const params = {
+  //       _limit: 10,
+  //     };
+  //     const productList = await productApi.getAll(params);
+  //     console.log(productList);
+  //   };
 
-    fetchProducts();
-  }, []);
+  //   fetchProducts();
+  // }, []);
 
   return (
     <div>
