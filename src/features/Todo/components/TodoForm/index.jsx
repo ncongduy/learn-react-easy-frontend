@@ -34,7 +34,10 @@ function TodoForm(props) {
   });
 
   function handleSubmit(values) {
-    console.log('Todo form: ', values);
+    if (!onSubmit) return;
+
+    onSubmit(values);
+    form.reset();
   }
 
   return (
