@@ -3,8 +3,9 @@ import { Redirect, Route, Switch } from 'react-router';
 import { Link } from 'react-router-dom';
 // import productApi from './api/productApi';
 import './App.css';
-import NotFound from './components/NotFound';
+// import NotFound from './components/NotFound';
 import AlbumFeature from './features/Album';
+import CounterFeature from './features/Counter';
 import TodoFeature from './features/Todo';
 
 function App() {
@@ -34,11 +35,11 @@ function App() {
         <Redirect from="/home" to="/" exact />
         <Redirect from="/post-list/:postId" to="/posts/:postId" exact />
 
-        {/* <Route path="/" component={TodoFeature} /> */}
+        <Route path="/counter" component={CounterFeature} />
         <Route path="/todos" component={TodoFeature} />
         <Route path="/albums" component={AlbumFeature} />
 
-        <Route component={NotFound} />
+        {/* <Route component={NotFound} /> */}
       </Switch>
       <h2>Footer</h2>
     </div>
