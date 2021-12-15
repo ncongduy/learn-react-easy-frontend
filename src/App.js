@@ -1,8 +1,8 @@
 // import { useEffect } from 'react';
 import { Redirect, Route, Switch } from 'react-router';
-import { Link } from 'react-router-dom';
 // import productApi from './api/productApi';
 import './App.css';
+import Header from './components/Header';
 // import NotFound from './components/NotFound';
 import AlbumFeature from './features/Album';
 import CounterFeature from './features/Counter';
@@ -23,14 +23,8 @@ function App() {
 
   return (
     <div>
-      <p>
-        <Link to="/todos">Todos</Link>
-      </p>
-      <p>
-        <Link to="/albums">Albums</Link>
-      </p>
+      <Header />
 
-      <h2>Header</h2>
       <Switch>
         <Redirect from="/home" to="/" exact />
         <Redirect from="/post-list/:postId" to="/posts/:postId" exact />
