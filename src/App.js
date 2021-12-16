@@ -35,7 +35,6 @@ function App() {
 
         {/* <Route component={NotFound} /> */}
       </Switch>
-      <h2>Footer</h2>
     </div>
   );
 }
