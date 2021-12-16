@@ -1,12 +1,13 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Avatar, Button, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import InputField from '../../../../components/form-controls/InputField';
-import { makeStyles } from '@material-ui/core/styles';
+import PasswordField from '../../../../components/form-controls/PasswordField';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,15 +38,7 @@ function RegisterForm(props) {
   const { onSubmit } = props;
   const classes = useStyles();
 
-  const schema = yup
-    .object()
-    .shape({
-      title: yup
-        .string()
-        .required('Please enter title!')
-        .min(5, 'Title is more than 5 characters!'),
-    })
-    .required();
+  const schema = yup.object().shape({});
 
   const form = useForm({
     defaultValues: {
@@ -77,14 +70,19 @@ function RegisterForm(props) {
       <form onSubmit={form.handleSubmit(handleSubmit)}>
         <InputField name="fullname" label="Full name" form={form} />
         <InputField name="email" label="Email" form={form} />
-        <InputField name="password" label="Password" form={form} />
-        <InputField name="retypePassword" label="Retype password" form={form} />
+        <PasswordField name="password" label="Password" form={form} />
+        <PasswordField
+          name="retypePassword"
+          label="Retype password"
+          form={form}
+        />
 
         <Button
           variant="contained"
           color="primary"
           className={classes.submit}
           fullWidth
+          type="submit"
         >
           Create an account
         </Button>
